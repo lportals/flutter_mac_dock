@@ -335,23 +335,17 @@ class _MacDockItemWidget extends StatelessWidget {
                       child: Container(
                         width: animSize,
                         height: animSize,
-                        clipBehavior: Clip.antiAlias,
+                        // antiAliasWithSaveLayer provides smoother sub-pixel edge rendering
+                        // which is crucial when scaling icons during magnification.
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
                         decoration: ShapeDecoration(
-                          shape: ContinuousRectangleBorder(
+                          // RoundedSuperellipseBorder mathematically matches Apple's
+                          // continuous superellipse shape used in macOS and iOS icons.
+                          // It prevents the "pinched" look that simple ContinuousRectangleBorder
+                          // produces. A radius of ~28% of the width matches the Apple ratio.
+                          shape: RoundedSuperellipseBorder(
                             borderRadius:
-                                BorderRadius.circular(animSize * 0.54),
-                            side: BorderSide(
-                              color: Colors.white.withValues(alpha: 0.4),
-                              width: 0.5,
-                            ),
-                          ),
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withValues(alpha: 0.1),
-                              Colors.transparent,
-                            ],
+                                BorderRadius.circular(animSize * 0.28),
                           ),
                           shadows: [
                             BoxShadow(

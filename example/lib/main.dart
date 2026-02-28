@@ -31,54 +31,27 @@ class DockExampleScreen extends StatefulWidget {
 class _DockExampleScreenState extends State<DockExampleScreen> {
   int? _selectedIndex;
 
-  /// Sample dock items using actual image assets
   static const _iconConfigs = [
-    (label: 'GitHub', imagePath: 'assets/github.png'),
+    (label: 'Finder', imagePath: 'assets/finder.webp'),
+    (label: 'Chrome', imagePath: 'assets/chrome.jpg'),
+    (label: 'Notes', imagePath: 'assets/notes.png'),
+    (label: 'Settings', imagePath: 'assets/settings.jpg'),
     (label: 'Email', imagePath: 'assets/email.png'),
-    (label: 'LinkedIn', imagePath: 'assets/linkedin.png'),
+    (label: 'GitHub', imagePath: 'assets/github.png'),
     (label: 'X / Twitter', imagePath: 'assets/xlogo.png'),
-    (label: 'Taskagotchi', imagePath: 'assets/taskagotchi.png'),
-    (label: 'Viste', imagePath: 'assets/viste.png'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1C1C1E),
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Background gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF2C2C3E),
-                  Color(0xFF1C1C2E),
-                  Color(0xFF0D0D14),
-                ],
-              ),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.desktop_mac_rounded,
-                    size: 80,
-                    color: Colors.white.withValues(alpha: 0.1),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Hover over the dock below',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.3),
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
+          // Background
+          Positioned.fill(
+            child: Image.asset(
+              'assets/macos_ventura.jpg',
+              fit: BoxFit.cover,
             ),
           ),
 
@@ -90,18 +63,19 @@ class _DockExampleScreenState extends State<DockExampleScreen> {
             child: SizedBox(
               height: 120, // Provide some headroom for magnification
               child: MacDock(
+                style: const DockStyle(
+                  indicatorColor: Colors.white,
+                  magnification: 0.5,
+                ),
                 items: _iconConfigs.asMap().entries.map((entry) {
                   final i = entry.key;
                   final cfg = entry.value;
                   return DockItem(
                     label: cfg.label,
                     isSelected: _selectedIndex == i,
-                    icon: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        cfg.imagePath,
-                        fit: BoxFit.cover,
-                      ),
+                    icon: Image.asset(
+                      cfg.imagePath,
+                      fit: BoxFit.cover,
                     ),
                     onTap: () => setState(() => _selectedIndex = i),
                   );
