@@ -1,0 +1,19 @@
+name: flutter_mac_dock
+description: >-
+  A macOS-style dock widget for Flutter with smooth magnification on hover,
+  glassmorphism background, animated tooltips, and zero external dependencies.
+version: 0.1.0
+homepage: https://github.com/lportals/flutter_mac_dock
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0

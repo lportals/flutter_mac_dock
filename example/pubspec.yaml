@@ -1,0 +1,12 @@
+name: flutter_mac_dock_example
+description: Example app for the flutter_mac_dock package.
+publish_to: 'none'
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_mac_dock:
+    path: ../
