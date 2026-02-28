@@ -31,24 +31,14 @@ class DockExampleScreen extends StatefulWidget {
 class _DockExampleScreenState extends State<DockExampleScreen> {
   int? _selectedIndex;
 
-  /// Sample dock items using Material icons as stand-ins for app icons.
+  /// Sample dock items using actual image assets
   static const _iconConfigs = [
-    (label: 'Finder', icon: Icons.folder_rounded, color: Color(0xFF5EB3F6)),
-    (label: 'Safari', icon: Icons.language_rounded, color: Color(0xFF4A90D9)),
-    (
-      label: 'Messages',
-      icon: Icons.chat_bubble_rounded,
-      color: Color(0xFF6AD85E)
-    ),
-    (label: 'Music', icon: Icons.music_note_rounded, color: Color(0xFFFA5757)),
-    (
-      label: 'Photos',
-      icon: Icons.photo_library_rounded,
-      color: Color(0xFFF6D04A)
-    ),
-    (label: 'Mail', icon: Icons.mail_rounded, color: Color(0xFF5EB3F6)),
-    (label: 'Maps', icon: Icons.map_rounded, color: Color(0xFF4CAF50)),
-    (label: 'Settings', icon: Icons.settings_rounded, color: Color(0xFF9E9E9E)),
+    (label: 'GitHub', imagePath: 'assets/github.png'),
+    (label: 'Email', imagePath: 'assets/email.png'),
+    (label: 'LinkedIn', imagePath: 'assets/linkedin.png'),
+    (label: 'X / Twitter', imagePath: 'assets/xlogo.png'),
+    (label: 'Taskagotchi', imagePath: 'assets/taskagotchi.png'),
+    (label: 'Viste', imagePath: 'assets/viste.png'),
   ];
 
   @override
@@ -97,33 +87,27 @@ class _DockExampleScreenState extends State<DockExampleScreen> {
             bottom: 24,
             left: 0,
             right: 0,
-            child: MacDock(
-              items: _iconConfigs.asMap().entries.map((entry) {
-                final i = entry.key;
-                final cfg = entry.value;
-                return DockItem(
-                  label: cfg.label,
-                  isSelected: _selectedIndex == i,
-                  icon: Container(
-                    decoration: BoxDecoration(
-                      color: cfg.color,
+            child: SizedBox(
+              height: 120, // Provide some headroom for magnification
+              child: MacDock(
+                items: _iconConfigs.asMap().entries.map((entry) {
+                  final i = entry.key;
+                  final cfg = entry.value;
+                  return DockItem(
+                    label: cfg.label,
+                    isSelected: _selectedIndex == i,
+                    icon: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        cfg.icon,
-                        color: Colors.white,
-                        size: 28,
+                      child: Image.asset(
+                        cfg.imagePath,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                  onTap: () => setState(() => _selectedIndex = i),
-                );
-              }).toList(),
-              dividerIndices: const [4],
-              onItemHover: (index) {
-                // You could show previews, update a 3D model, etc.
-              },
+                    onTap: () => setState(() => _selectedIndex = i),
+                  );
+                }).toList(),
+                dividerIndices: const [3],
+              ),
             ),
           ),
         ],
