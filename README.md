@@ -32,9 +32,12 @@ flutter pub get
 
 ## Quick Start
 
+The `icon` property accepts **any Widget** — use `Icon`, `Image.asset`, `Image.network`, or any custom widget:
+
 ```dart
 import 'package:flutter_mac_dock/flutter_mac_dock.dart';
 
+// Using Material Icons for a quick prototype
 MacDock(
   items: [
     DockItem(
@@ -58,7 +61,7 @@ MacDock(
 
 ## Using Image Assets
 
-For a more authentic look, use image assets instead of icons:
+For a more authentic macOS look, pass image assets as the `icon` widget:
 
 ```dart
 MacDock(
@@ -84,7 +87,8 @@ MacDock(
 )
 ```
 
-> **Tip:** Icon images are automatically clipped to Apple's superellipse shape — no need for `ClipRRect` or manual rounding.
+> **Tip:** Images are automatically clipped to Apple's superellipse shape — no need for `ClipRRect` or manual rounding. Use `BoxFit.cover` for best results.
+
 
 ## Customization
 
