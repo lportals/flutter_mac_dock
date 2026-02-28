@@ -9,4 +9,6 @@
 - `DockStyle` for full visual customization
 - Optional dividers between item groups
 - Selection indicator dot
+- Pixel-perfect Apple superellipse icon clipping via `RoundedSuperellipseBorder`
 - Zero external dependencies
+- Requires Flutter ≥ 3.32.0

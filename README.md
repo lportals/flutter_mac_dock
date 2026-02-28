@@ -4,15 +4,12 @@ A macOS-style dock widget for Flutter with smooth magnification on hover, glassm
 
 **Zero external dependencies** — only requires the Flutter SDK.
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/lportals/flutter_mac_dock/main/doc/preview.gif" alt="Flutter Mac Dock Preview" width="600"/>
-</p>
-
 ## Features
 
 - 🔍 **Cosine-based magnification** — Icons smoothly scale as the cursor approaches, just like the macOS dock
 - 🪟 **Glassmorphism background** — Blurred, translucent container with configurable opacity
 - 💬 **Animated tooltips** — Labels appear above hovered items with a frosted-glass effect
+- 🍎 **Pixel-perfect Apple squircle** — Uses Flutter's native `RoundedSuperellipseBorder` for icon clipping that matches the exact macOS/iOS icon shape
 - 🎨 **Fully customizable** — Control icon size, magnification intensity, range, colors, and more via `DockStyle`
 - ➗ **Dividers** — Optional separators between item groups
 - ⚡ **Zero dependencies** — Pure Flutter, no external packages required
@@ -24,9 +21,13 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_mac_dock:
-    git:
-      url: https://github.com/lportals/flutter_mac_dock.git
+  flutter_mac_dock: ^0.1.0
+```
+
+Then run:
+
+```bash
+flutter pub get
 ```
 
 ## Quick Start
@@ -55,6 +56,36 @@ MacDock(
 )
 ```
 
+## Using Image Assets
+
+For a more authentic look, use image assets instead of icons:
+
+```dart
+MacDock(
+  items: [
+    DockItem(
+      label: 'Finder',
+      icon: Image.asset('assets/finder.webp', fit: BoxFit.cover),
+    ),
+    DockItem(
+      label: 'Chrome',
+      icon: Image.asset('assets/chrome.png', fit: BoxFit.cover),
+    ),
+    DockItem(
+      label: 'Notes',
+      icon: Image.asset('assets/notes.png', fit: BoxFit.cover),
+    ),
+    DockItem(
+      label: 'Settings',
+      icon: Image.asset('assets/settings.png', fit: BoxFit.cover),
+    ),
+  ],
+  dividerIndices: [2],  // Divider after the 3rd item
+)
+```
+
+> **Tip:** Icon images are automatically clipped to Apple's superellipse shape — no need for `ClipRRect` or manual rounding.
+
 ## Customization
 
 Use `DockStyle` to control the appearance:
@@ -65,12 +96,13 @@ MacDock(
   dividerIndices: [3],  // Divider after the 4th item
   style: DockStyle(
     iconSize: 56,              // Base icon size
-    magnification: 1.0,        // Max magnification (100% growth)
+    magnification: 0.5,        // Max magnification (50% growth)
     range: 180,                // Hover influence range in pixels
     backgroundColor: Colors.black.withOpacity(0.3),
     borderRadius: 24,
     blurSigma: 20,
     showIndicator: true,       // Selection dot below items
+    indicatorColor: Colors.white,
   ),
   onItemHover: (index) {
     // React to hover changes (e.g., update a preview)
@@ -109,6 +141,7 @@ MacDock(
 | `borderRadius` | `double` | `20.0` | Container border radius |
 | `blurSigma` | `double` | `15.0` | Glassmorphism blur intensity |
 | `showIndicator` | `bool` | `true` | Show selection dot |
+| `indicatorColor` | `Color` | `Colors.black87` | Selection dot color |
 
 ## How It Works
 
@@ -119,6 +152,13 @@ scale = 1.0 + magnification × cos(distance / range × π/2)
 ```
 
 This produces a smooth bell-curve falloff where the item directly under the cursor is maximally scaled, and the effect gradually diminishes to 1.0 at the edge of the `range`.
+
+Icons are clipped using Flutter's native **`RoundedSuperellipseBorder`**, which renders the exact Apple superellipse shape (the same as SwiftUI's `.continuous` corner style) with GPU acceleration. This ensures pixel-perfect icon corners that scale smoothly during magnification.
+
+## Requirements
+
+- **Flutter** ≥ 3.32.0 (for `RoundedSuperellipseBorder` support)
+- **Dart** ≥ 3.6.0
 
 ## License
 
