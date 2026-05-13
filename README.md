@@ -2,6 +2,10 @@
 
 A macOS-style dock widget for Flutter with smooth magnification on hover, glassmorphism background, and animated tooltips.
 
+![Flutter Mac Dock Demo](https://raw.githubusercontent.com/lportals/flutter_mac_dock/main/assets/demo.gif)
+
+[**🌐 Live Demo**](https://www.luisportal.com)
+
 **Zero external dependencies** — only requires the Flutter SDK.
 
 ## Features
