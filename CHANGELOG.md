@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- Added demo GIF to README
+- Updated homepage and demo URLs
+- Updated license year
+
 ## 0.1.0
 
 - Initial release
